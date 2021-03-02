@@ -1,0 +1,70 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Routine
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <!-- Button trigger modal -->
+        <div style="text-align: center" class="mt-2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Upload Videos
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Class-Video Upload Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" class="form-group" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            <legend></legend>
+                            <fieldset class="form-group">
+                                {{ form|crispy }}
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-outline-primary mt-2" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% for r in Videos %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card" style="width: 18em;">
+                        <button data-bs-toggle="modal"
+                                data-bs-target="#exampleModal_videos">{{ r.Video_title }}</button>
+                        <div class="modal fade" id="exampleModal_videos">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <video style="width: fit-content;" controls>
+                                            <source src="{{ r.Video.url }}" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Routine</h5>
+                            <p class="card-text">{{ r.Department }}, {{ r.Batch }}, {{ r.Section }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

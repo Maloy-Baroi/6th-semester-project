@@ -1,0 +1,30 @@
+{% extends 'navbar.html' %}
+{% load custom_filters %}
+{% block body %}
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'App_Blog:my_blog' %}">My Blog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'App_Blog:create_blog' %}">Create Blog</a>
+        </li>
+    </ul>
+    <h4>Blogs</h4>
+    {% for blog in Blog %}
+        <h3>{{ blog.blog_title }}</h3>
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="{{ blog.blog_image.url }}" alt="Image"
+                     title="{{ blog.blog_title }}" width="350px" height="350px">
+                <h6>{{ blog.publish_date }}</h6>
+                <h6>{{ blog.liked_blog.count }} User Liked | {{ blog.blog_comment.count }} Comments</h6>
+                <h6>posted by- <a href="#">@{{ blog.author }}</a></h6>
+            </div>
+            <div class="col-sm-8">
+                <p>{{ blog.blog_content|range_filter|linebreaks }}</p>
+                <a href="{% url 'App_Blog:blog_details' slug=blog.slug %}">Read more</a>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

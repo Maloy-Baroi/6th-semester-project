@@ -1,0 +1,72 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block body %}
+    <div class="row">
+        <!-- Button trigger modal -->
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="mt-2 text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Upload Routine
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Routine Upload Form</h5>
+                    </div>
+                    <form method="post" class="form-group" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            <legend></legend>
+                            <fieldset class="form-group">
+                                {{ form|crispy }}
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-outline-primary mt-2" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% for r in Routine %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card" style="width: 18em;">
+                        <img src="{{ r.Routine_image.url }}" class="card-img-top"
+                             alt="{{ r.Batch }}, {{ r.Department }}" data-bs-toggle="modal"
+                             data-bs-target="#exampleModal_image">
+                        <div class="modal fade" id="exampleModal_image">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <img src="{{ r.Routine_image.url }}" class="card-img-top"
+                                             alt="{{ r.Batch }}, {{ r.Department }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Routine</h5>
+                            <p class="card-text">{{ r.Department }}, {{ r.Batch }}, {{ r.Section }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

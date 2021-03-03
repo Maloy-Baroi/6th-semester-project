@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'App_main.apps.AppMainConfig',
     'App_Attendance.apps.AppAttendanceConfig',
     'App_Blog.apps.AppBlogConfig',
+    'App_test.apps.AppTestConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

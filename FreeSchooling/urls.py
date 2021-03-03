@@ -27,6 +27,7 @@ urlpatterns = [
     path('main/', include('App_main.urls')),
     path('attendance/', include('App_Attendance.urls')),
     path('blog/', include('App_Blog.urls')),
+    path('test/', include('App_test.urls')),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
     path('reset-password-confirm/<uidb64>/<token>/',

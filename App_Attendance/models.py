@@ -45,7 +45,7 @@ class Attendance(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='department_in_attendance')
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semester_in_attendance')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_in_attendance')
-    student_id = models.CharField(max_length=255, blank=False, null=False, unique=True)
+    student_id = models.CharField(max_length=255, blank=True, null=False)
     teacher_id = models.CharField(max_length=255)
     submission_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)

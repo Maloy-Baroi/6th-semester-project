@@ -32,7 +32,7 @@ def findEncodings(images):
 @login_required
 def attendance_sys(request):
     # Get a reference to webcam #0 (the default one)
-    global student_roll
+    student_roll = -1
     video_capture = cv2.VideoCapture(0)
 
     # Load a sample picture and learn how to recognize it.
@@ -105,11 +105,17 @@ def attendance_sys(request):
                         s_id_best = s_id[best_match_index]
                         person = StudentInfo.objects.filter(student_id=s_id_best)
                         name = known_face_names[best_match_index] + ', Status: ' + "Present"
-                        student_roll = person.get().student_id
+                        try:
+                            student_roll = person.get().student_id
+                        except:
+                            attend_form.presence = 0
 
                 while_runner = False
-            attend_form.student_id = student_roll
-            attend_form.save()
+            if student_roll == -1:
+                return HttpResponseRedirect(reverse('App_Attendance:attendance'))
+            else:
+                attend_form.student_id = student_roll
+                attend_form.save()
             # form.student_id = student_roll
             # form.save()
             # Release handle to the webcam

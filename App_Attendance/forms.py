@@ -23,6 +23,6 @@ class SemesterForm(forms.ModelForm):
 class AttendanceForm(forms.ModelForm):
     class Meta:
         model = Attendance
-        exclude = ['student_id', 'student_finding_user']
+        exclude = ['student_id']
 
 

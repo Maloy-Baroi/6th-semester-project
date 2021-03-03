@@ -50,18 +50,22 @@
             </tr>
             </thead>
             <tbody>
-            {% for attend in attendance %}
-                <tr>
-                    <th scope="row">{{ attend.submission_date }}</th>
-                    <td>{{ attend.student_id.student_user.first_name }} {{ attend.student_id.student_user.last_name }}</td>
-                    <td>{{ attend.student_id.student_id }}</td>
-                    {% if attend.presence %}
-                        <td>1</td>
-                    {% else %}
-                        <td>0</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
+            {% if No_student_data %}
+                <h3>{{ No_student_data }}</h3>
+            {% else %}
+                {% for attend in attendance_details %}
+                    <tr>
+                        <th scope="row">{{ attend.submission_date }}</th>
+                        <td>{{ attend.student_details }} {{ attend.student_id.student_user.last_name }}</td>
+                        <td>{{ attend.student_id }}</td>
+                        {% if attend.presence %}
+                            <td>1</td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
             </tbody>
         </table>
     </div>

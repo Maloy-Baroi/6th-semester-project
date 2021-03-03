@@ -26,12 +26,12 @@ class StudentInfo(models.Model):
                                              max_length=17,
                                              blank=True, null=True)
     fathers_name = models.CharField(max_length=100)
-    fathers_nid = models.IntegerField(unique=True)
+    fathers_nid = models.IntegerField(unique=False)
     fathers_mobile_number = models.CharField(validators=[phone_regex], verbose_name=_("Father's Mobile phone"),
                                              max_length=17,
                                              blank=False, null=False)
     mothers_name = models.CharField(max_length=100)
-    mothers_nid = models.IntegerField(unique=True)
+    mothers_nid = models.IntegerField(unique=False)
     mothers_mobile_number = models.CharField(validators=[phone_regex], verbose_name=_("Mother's Mobile phone"),
                                              max_length=17,
                                              blank=False, null=False)

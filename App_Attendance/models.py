@@ -1,12 +1,12 @@
 from django.db import models
-from App_login.models import StudentInfo, TeacherInfo
+from App_login.models import StudentInfo, TeacherInfo, CustomUser
 
 course_choose = (
     ('CSE', 'Introduction to Computer System'),
     ('CSE', 'Programming Language'),
     ('CSE', 'Programming Language'),
     ('CSE', 'Physics (Electricity and magnetism)'),
-    ('CSE', 'Differential Calculus and Co-Ordinate Geometry' ),
+    ('CSE', 'Differential Calculus and Co-Ordinate Geometry'),
     ('BBA', '')
 )
 
@@ -40,10 +40,12 @@ class Course(models.Model):
 
 
 class Attendance(models.Model):
+    # student_finding_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
+    #                                          related_name='attendance_student_user')
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='department_in_attendance')
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semester_in_attendance')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_in_attendance')
-    student_id = models.ForeignKey(StudentInfo, on_delete=models.CASCADE, related_name='student_in_attendance')
+    student_id = models.CharField(max_length=255, blank=False, null=False, unique=True)
     teacher_id = models.CharField(max_length=255)
     submission_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
